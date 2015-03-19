@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelParecerFinalBanca" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a8c1d07-cec9-461b-a184-5cfbbf295ac9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="217"/>
+	<parameter name="codigoMatricula" class="java.lang.String"/>
+	<parameter name="banca" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     matricula.`codigo` AS matricula_codigo,
+     matricula.`tema` AS matricula_tema,
+     matricula.`tcc` AS matricula_tcc,
+     matricula.`status` AS matricula_status,
+     matricula.`orientador` AS matricula_orientador,
+     matricula.`aluno` AS matricula_aluno,
+     pessoa_aluno.`nome` AS pessoa_aluno_nome,
+     pessoa_aluno.`matricula` AS pessoa_aluno_matricula,
+     pessoa_orientador.`nome` AS pessoa_orientador_nome
+FROM
+     `matricula` matricula
+     INNER JOIN `pessoa` pessoa_aluno ON pessoa_aluno.`codigo` = matricula.`aluno`
+     INNER JOIN `pessoa` pessoa_orientador ON pessoa_orientador.`codigo` = matricula.`orientador`
+where matricula.`codigo` = $P{codigoMatricula}]]>
+	</queryString>
+	<field name="matricula_codigo" class="java.lang.Integer"/>
+	<field name="matricula_tema" class="java.lang.String"/>
+	<field name="matricula_tcc" class="java.lang.Integer"/>
+	<field name="matricula_status" class="java.lang.Integer"/>
+	<field name="matricula_orientador" class="java.lang.Integer"/>
+	<field name="matricula_aluno" class="java.lang.Integer"/>
+	<field name="pessoa_aluno_nome" class="java.lang.String"/>
+	<field name="pessoa_aluno_matricula" class="java.lang.String"/>
+	<field name="pessoa_orientador_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="30" width="513" height="50" uuid="ec0e50c3-78cf-48f2-bf8b-1e4ec4fee90e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO PAMPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="50" width="513" height="30" uuid="ec0e50c3-78cf-48f2-bf8b-1e4ec4fee90e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAMPUS ALEGRETE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="17" width="513" height="30" uuid="ec0e50c3-78cf-48f2-bf8b-1e4ec4fee90e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ATA DE DEFESA DE TRABALHO DE CONCLUSÃO DE CURSO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="16" width="42" height="20" uuid="2deed329-c2ee-4748-a040-b5c8f9b501a0"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Aluno:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="156" y="49" width="156" height="20" uuid="2547278d-4916-47d1-ade7-1ad41c8f3133"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matricula_tema}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="38" y="49" width="100" height="20" uuid="3f0ba1fc-3780-421d-89fc-3d1e510076d9"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Título do trabalho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="16" width="54" height="20" uuid="9dc15d6e-d03f-4240-9510-39cc770b9937"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Matrícula:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="16" width="208" height="20" uuid="c2f1373d-9219-4740-91de-817fca4bf245"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_aluno_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="16" width="109" height="20" uuid="8683e24c-6e10-4179-bc6a-dc2489c268ad"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_aluno_matricula}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="258" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="20" width="118" height="20" uuid="64e79865-2610-4f76-9058-a6484772c7ad"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Banca Examinadora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="134" width="234" height="24" uuid="94a5c742-471d-4991-a35d-a304289e1945"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Média Final: ______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="172" width="90" height="20" uuid="4dcf487c-6637-4324-b67b-2d53929af1eb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="172" width="90" height="20" uuid="7086de76-8832-4878-b38e-a7e27c3207a4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(    ) Aprovado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="172" width="90" height="20" uuid="3628a10b-84e4-435c-a68f-3a5a023ab845"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(    ) Reprovado]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="443" y="228" width="109" height="20" uuid="ce83bc89-e736-4332-aaed-23af769d4af5"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="385" y="228" width="58" height="20" uuid="cf92b11e-8888-4bd4-895d-ec54df02d15b"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Alegrete,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="174" y="20" width="200" height="102" uuid="096ef534-82af-4043-a9eb-171d629a1616"/>
+				<textFieldExpression><![CDATA[$P{banca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="374" y="0" width="165" height="102" uuid="ee35f1ba-e268-4ce2-8dd4-94828ffc29cb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Notas:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="56" width="287" height="20" uuid="e40d6494-5e9d-4a1a-8ba5-f8b219021187"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="76" width="87" height="20" uuid="02a642b9-70ab-4536-afb3-7abf2beb2cfc"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Examinador 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="287" height="20" uuid="f19e3912-0a85-4612-8038-588acf420769"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="20" width="202" height="20" uuid="5c43b392-65a9-45d9-a9c4-fc2ff3bb585a"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Presidente da Banca Examinadora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="108" width="287" height="20" uuid="bc6d7dd6-f447-4263-aeb5-39fd395e6467"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="130" width="87" height="20" uuid="4a3afd81-1415-4ec1-adbb-f12cd8b2af85"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Examinador 2]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="14" splitType="Stretch"/>
+	</summary>
+</jasperReport>
