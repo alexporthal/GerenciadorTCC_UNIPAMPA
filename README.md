@@ -9,4 +9,5 @@ Gerencidor de TCC - UNIPAMPA
  - Miguel Zinelli Jr.
 
 #### Colaborador:
+  - Fábio Natanael Kepler
   - Luciano Marchezan
