@@ -42,7 +42,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/GekeTCC/">GekeTCC </a> 
+                    <a class="navbar-brand" href="/GekeTCC/">TCC </a> 
                 </div>
                 <div style="color: black;
                      padding: 15px 50px 5px 50px;
@@ -58,7 +58,7 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Seja bem vindo ao "GekeTCC":<br> </h2>
+                            <h2>Seja bem vindo ao "Gerenciador de TCC":<br> </h2>
 
                             <br>    
                             <h5>Para realizar o login no sistema, insira seus dados nos campos abaixo correspondentes. </h5>
@@ -90,4 +90,13 @@
 
                                             </div>
                                         </div>   
-                                        </html>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

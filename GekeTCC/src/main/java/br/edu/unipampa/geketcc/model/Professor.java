@@ -22,6 +22,5 @@ public class Professor extends Pessoa {
         super.setNome(pessoa.getNome());
         super.setEmail(pessoa.getEmail());
         super.setMatricula(pessoa.getMatricula());
-        super.setCargaHoraria(pessoa.getCargaHoraria());
     }
 }

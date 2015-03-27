@@ -1,7 +1,6 @@
 package br.edu.unipampa.geketcc.controller;
 
 import br.edu.unipampa.geketcc.model.Pessoa;
-import br.edu.unipampa.geketcc.model.Usuario;
 import br.edu.unipampa.geketcc.service.LoginUsuarioService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/*
+/**
  * Login Controller
  *
- * @author Gean Pereira
- * @since 09/12/2014
+ * @version v 1.0 27/03/2015
+ * @author Alex Becker
+ * @since 27/03/2015
+ *
  */
 @Controller
 public class LoginController {
@@ -29,14 +30,6 @@ public class LoginController {
 
     public LoginController() {
         loginUsuarioService = new LoginUsuarioService();
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(
-                dateFormat, true));
     }
 
     @RequestMapping(value = {"/", "/login", "/index"})
@@ -49,18 +42,17 @@ public class LoginController {
     @RequestMapping("/login/efetuaLogin")
     public String efetuaLogin(@ModelAttribute(value = "login") String login,
             @ModelAttribute(value = "senha") String senha, RedirectAttributes redirectAttrs, HttpSession session) {
+System.out.println("começou");
+        Pessoa pessoa = loginUsuarioService.autenticarUsuario(login, senha);
 
-        Usuario usuario = new Usuario();
-        usuario.setLogin(login);
-        usuario.setSenha(senha);
-
-        if (loginUsuarioService.validarUsuario(usuario)) {
-            Pessoa pessoa = loginUsuarioService.buscaUsuario(usuario.getLogin());
+        if (pessoa != null) {
+            System.out.println("Logado");
             session.setAttribute("usuarioLogado", pessoa);
             redirectAttrs.addAttribute("mensagem",
                     "Bem-Vindo ao Sistema. Escolha o que deseja fazer no menu ao lado.").addFlashAttribute(
                             "mensagem", "Bem-Vindo ao Sistema. Escolha o que deseja fazer no menu ao lado.");
         } else {
+            System.out.println("nops");
             session.invalidate();
             redirectAttrs.addAttribute("mensagem",
                     "Erro ao efetuar o login, 'Login' ou 'Senha' inválidos!").addFlashAttribute(

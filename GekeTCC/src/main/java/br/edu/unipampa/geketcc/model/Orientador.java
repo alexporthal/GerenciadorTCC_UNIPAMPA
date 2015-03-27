@@ -12,9 +12,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "2")
 public class Orientador extends Pessoa {
-   
+
     public Orientador() {
-        
+
     }
 
     public Orientador(Pessoa pessoa) {
@@ -23,6 +23,5 @@ public class Orientador extends Pessoa {
         super.setNome(pessoa.getNome());
         super.setEmail(pessoa.getEmail());
         super.setMatricula(pessoa.getMatricula());
-        super.setCargaHoraria(pessoa.getCargaHoraria());
     }
 }

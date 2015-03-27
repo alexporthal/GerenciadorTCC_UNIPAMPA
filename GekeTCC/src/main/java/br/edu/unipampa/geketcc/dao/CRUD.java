@@ -3,7 +3,6 @@
 package br.edu.unipampa.geketcc.dao;
 
 import br.edu.unipampa.geketcc.model.Pessoa;
-import br.edu.unipampa.geketcc.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -152,27 +151,6 @@ public class CRUD {
             tx = session.beginTransaction();//cria uma transação para o hibernate conectar no banco
             Criteria criteria = session.createCriteria(classe);
             criteria.add(Restrictions.eq("login", login));
-            objeto = criteria.uniqueResult();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return objeto;
-    }
-
-    public static Object buscarObjetoPessoa(Usuario usuario, Class<?> classe) {
-        Object objeto = null;
-        Session session = HibernateUtil.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();//cria uma transação para o hibernate conectar no banco
-            Criteria criteria = session.createCriteria(classe);
-            criteria.add(Restrictions.eq("usuario", usuario));
             objeto = criteria.uniqueResult();
             tx.commit();
         } catch (Exception e) {

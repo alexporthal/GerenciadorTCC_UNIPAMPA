@@ -2,55 +2,38 @@ package br.edu.unipampa.geketcc.service;
 
 import br.edu.unipampa.geketcc.dao.LoginUsuarioDAO;
 import br.edu.unipampa.geketcc.model.Pessoa;
-import br.edu.unipampa.geketcc.model.Usuario;
+import java.util.List;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.ldap.core.LdapTemplate;
 
-/*
- * Login Usuário Service
+/**
+ * Login Usuario Service
  *
- * Classe que realiza serviços para as classes controladoras
+ * @version v 1.0 27/03/2015
+ * @author Alex Becker
+ * @since 27/03/2015
  *
- * @author Gean Pereira
- * @since 09/12/2014
  */
 public class LoginUsuarioService {
 
     private final LoginUsuarioDAO loginUsuarioDao;
 
     public LoginUsuarioService() {
-        loginUsuarioDao = new LoginUsuarioDAO();
+        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
+        loginUsuarioDao = new LoginUsuarioDAO(appContext.getBean(LdapTemplate.class));
     }
 
-    /**
-     * Valida se o usuário passado como parâmetro é valido, verificando
-     * se o login e senha informados batem com os contidos no banco de dados
-     * 
-     * @param usuario
-     * @return boolean
-     */
-    public boolean validarUsuario(Usuario usuario) {
-        Usuario retorno = (Usuario) loginUsuarioDao.buscarUsuario(usuario.getLogin());
-
-        if (retorno != null) {
-            return retorno.getSenha().equals(usuario.getSenha());
+    public Pessoa autenticarUsuario(String login, String senha) {
+        Pessoa usuario = null;
+        if (loginUsuarioDao.autenticarUsuario(login, senha)) {
+            usuario = getInfoUsuarioLogado(login);
         }
-        
-        return false;
+        return usuario;
     }
 
-    /**
-     * Busca as informações de um usuário 
-     * 
-     * @param login
-     * @return Pessoa  
-     */
-    public Pessoa buscaUsuario(String login) {
-        Usuario usuario = loginUsuarioDao.buscarUsuario(login);
-        Pessoa pessoaUsuario = loginUsuarioDao.buscarPessoa(usuario);
-
-        if (pessoaUsuario != null) {
-            return pessoaUsuario;
-        }
-
-        return null;
+    private Pessoa getInfoUsuarioLogado(String login) {
+        List<Pessoa> usuario = loginUsuarioDao.getUserInfo(login);
+        return usuario.get(0);
     }
+
 }

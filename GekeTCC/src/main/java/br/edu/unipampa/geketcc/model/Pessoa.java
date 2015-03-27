@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.unipampa.geketcc.model;
 
 import java.io.Serializable;
@@ -11,81 +6,75 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Pessoa
  *
- * @author Miguel
+ * @version v 1.0 27/03/2015
+ * @author Alex Becker
+ * @since 27/03/2015
+ *
  */
 @Entity
 @Table(name = "pessoa")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p"),
-    @NamedQuery(name = "Pessoa.findByCodigo", query = "SELECT p FROM Pessoa p WHERE p.codigo = :codigo"),
-    @NamedQuery(name = "Pessoa.findByTipo", query = "SELECT p FROM Pessoa p WHERE p.tipo = :tipo"),
-    @NamedQuery(name = "Pessoa.findByNome", query = "SELECT p FROM Pessoa p WHERE p.nome = :nome"),
-    @NamedQuery(name = "Pessoa.findByEmail", query = "SELECT p FROM Pessoa p WHERE p.email = :email"),
-    @NamedQuery(name = "Pessoa.findBySiap", query = "SELECT p FROM Pessoa p WHERE p.siap = :siap"),
-    @NamedQuery(name = "Pessoa.findByMatricula", query = "SELECT p FROM Pessoa p WHERE p.matricula = :matricula"),
-    @NamedQuery(name = "Pessoa.findByCargaHoraria", query = "SELECT p FROM Pessoa p WHERE p.cargaHoraria = :cargaHoraria"),
-    @NamedQuery(name = "Pessoa.findByInstituicao", query = "SELECT p FROM Pessoa p WHERE p.instituicao = :instituicao")})
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
     private Integer codigo;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "tipo")
     private int tipo;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "nome")
     private String nome;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
+
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 100)
     @Column(name = "email")
     private String email;
-    @Size(max = 15)
-    @Column(name = "siap")
-    private String siap;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "email")
+    private String emailAlternativo;
+
     @Size(max = 15)
     @Column(name = "matricula")
     private String matricula;
-    @Column(name = "cargaHoraria")
-    private Integer cargaHoraria;
+
     @Size(max = 60)
-    @Column(name = "instituicao")
-    private String instituicao;
+    @Column(name = "curso")
+    private String curso;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "membro")
     private Collection<MembroBanca> membroBancaCollection;
-    @JoinColumn(name = "usuario", referencedColumnName = "codigo", updatable=true, insertable=true)
-    @ManyToOne(optional = true, cascade = CascadeType.ALL)
-    private Usuario usuario;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
     private Collection<Matricula> matriculaCollection;
+
     @OneToMany(mappedBy = "coorientador")
     private Collection<Matricula> matriculaCollection1;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador")
     private Collection<Matricula> matriculaCollection2;
 
@@ -135,12 +124,12 @@ public class Pessoa implements Serializable {
         this.email = email;
     }
 
-    public String getSiap() {
-        return siap;
+    public String getEmailAlternativo() {
+        return emailAlternativo;
     }
 
-    public void setSiap(String siap) {
-        this.siap = siap;
+    public void setEmailAlternativo(String emailAlternativo) {
+        this.emailAlternativo = emailAlternativo;
     }
 
     public String getMatricula() {
@@ -151,20 +140,12 @@ public class Pessoa implements Serializable {
         this.matricula = matricula;
     }
 
-    public Integer getCargaHoraria() {
-        return cargaHoraria;
+    public String getCurso() {
+        return curso;
     }
 
-    public void setCargaHoraria(Integer cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
-    public String getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(String instituicao) {
-        this.instituicao = instituicao;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 
     @XmlTransient
@@ -174,14 +155,6 @@ public class Pessoa implements Serializable {
 
     public void setMembroBancaCollection(Collection<MembroBanca> membroBancaCollection) {
         this.membroBancaCollection = membroBancaCollection;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @XmlTransient

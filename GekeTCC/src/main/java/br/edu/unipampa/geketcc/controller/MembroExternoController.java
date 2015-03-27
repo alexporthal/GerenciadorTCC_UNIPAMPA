@@ -1,7 +1,6 @@
 package br.edu.unipampa.geketcc.controller;
 
 import br.edu.unipampa.geketcc.model.Pessoa;
-import br.edu.unipampa.geketcc.model.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,8 +49,6 @@ public class MembroExternoController {
         
         Pessoa membroExterno = pessoaService.buscar(codigo);
         
-        membroExterno.setUsuario(new Usuario());
-        membroExterno.getUsuario().setLogin(membroExterno.getEmail());
         membroExterno.setTipo(3);
 
         modelAndView.addObject("membroExterno", membroExterno);

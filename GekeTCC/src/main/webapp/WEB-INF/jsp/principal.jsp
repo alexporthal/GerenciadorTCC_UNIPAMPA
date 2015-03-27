@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <h2>Bem Vindo!!!</h2>   
+                                <h2>Bem Vindo <c:out value="${usuarioLogado.nome}"></c:out></h2>   
                                 <h3><c:out value="${param.mensagem}"></c:out></h3>
                                 </div>                     
                             </div>

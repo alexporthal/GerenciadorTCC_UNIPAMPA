@@ -21,6 +21,5 @@ public class CoOrientador extends Pessoa {
         super.setNome(pessoa.getNome());
         super.setEmail(pessoa.getEmail());
         super.setMatricula(pessoa.getMatricula());
-        super.setCargaHoraria(pessoa.getCargaHoraria());
     }
 }

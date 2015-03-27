@@ -42,20 +42,12 @@ public class Cordenador extends Pessoa {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 100)
     @Column(name = "email")
     private String email;
     @Size(max = 15)
-    @Column(name = "siap")
-    private String siap;
-    @Size(max = 15)
     @Column(name = "matricula")
     private String matricula;
-    @Column(name = "cargaHoraria")
-    private Integer cargaHoraria;
-    @JoinColumn(name = "usuario", referencedColumnName = "codigo")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
     private Collection<Matricula> matriculaCollection;
     @OneToMany(mappedBy = "coorientador")
@@ -72,7 +64,6 @@ public class Cordenador extends Pessoa {
         super.setNome(pessoa.getNome());
         super.setEmail(pessoa.getEmail());
         super.setMatricula(pessoa.getMatricula());
-        super.setCargaHoraria(pessoa.getCargaHoraria());
     }
 
     public Cordenador(Integer codigo) {

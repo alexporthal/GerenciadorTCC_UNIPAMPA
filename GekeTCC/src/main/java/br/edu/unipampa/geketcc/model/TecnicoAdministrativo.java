@@ -25,45 +25,46 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @DiscriminatorValue(value = "6")
 public class TecnicoAdministrativo extends Pessoa {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
     private Integer codigo;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "tipo")
     private int tipo;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "nome")
     private String nome;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 100)
     @Column(name = "email")
     private String email;
-    @Size(max = 15)
-    @Column(name = "siap")
-    private String siap;
+    
     @Size(max = 15)
     @Column(name = "matricula")
     private String matricula;
-    @Column(name = "cargaHoraria")
-    private Integer cargaHoraria;
+    
     @OneToMany(mappedBy = "tecnicoAdministrativo")
     private Collection<MembroBanca> membrobancaCollection;
+    
     @OneToMany(mappedBy = "professor")
     private Collection<MembroBanca> membrobancaCollection1;
-    @JoinColumn(name = "codigo", referencedColumnName = "codigo", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Usuario usuario;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador")
     private Collection<Matricula> matriculaCollection;
+    
     @OneToMany(mappedBy = "coorientador")
     private Collection<Matricula> matriculaCollection1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
     private Collection<Matricula> matriculaCollection2;
 
@@ -76,7 +77,6 @@ public class TecnicoAdministrativo extends Pessoa {
         super.setNome(pessoa.getNome());
         super.setEmail(pessoa.getEmail());
         super.setMatricula(pessoa.getMatricula());
-        super.setCargaHoraria(pessoa.getCargaHoraria());
     }
 
     public TecnicoAdministrativo(Integer codigo) {
